@@ -86,10 +86,6 @@ bot = Cinch::Bot.new do
     end
   end
 
-  on :message, /^pid/ do |m|
-    m.reply "#{Process.pid}"
-  end
-
   on :message, /^#{ENV['NICK']}(: | )reboot$/ do |m|
     reboot m
   end
