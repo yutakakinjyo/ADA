@@ -4,6 +4,7 @@ require 'redis'
 require 'json'
 
 Dotenv.load
+Process.daemon(nochdir = true)
 r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
 
 class TimedPlugin
@@ -37,6 +38,13 @@ bot = Cinch::Bot.new do
     c.plugins.plugins = [TimedPlugin]
   end
 
+  helpers do
+    def reboot m
+      m.reply "ｻﾖｳﾅﾗ ..."
+      m.reply "reboot #{Process.pid} #{$0}"
+    end
+  end
+
   on :message, /^event add (.+)/ do |m, event_name|
     key = "#{event_name}#{m.channel}"
     if r.exists(key)
@@ -67,6 +75,29 @@ bot = Cinch::Bot.new do
       m.reply "#{event_name} は追加されていません"
     end
   end
+
+  on :message, /^#{ENV['NICK']}(: | )強くなれ$/ do |m|
+    m.reply "最新の code を git pull します ..."
+    if system("git pull")
+      m.reply "最新の code 取得に成功しました. これより再起動します"
+      reboot m
+    else
+      m.reply "最新の code 取得に失敗しました."
+    end
+  end
+
+  on :message, /^pid/ do |m|
+    m.reply "#{Process.pid}"
+  end
+
+  on :message, /^#{ENV['NICK']}(: | )reboot$/ do |m|
+    reboot m
+  end
+
+  on :message, /^#{ENV['NICK']}(: | )down$/ do |m|
+    Process.kill(:QUIT, $$)
+  end
+
 end
 
 bot.start
