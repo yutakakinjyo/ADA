@@ -4,7 +4,7 @@ require 'redis'
 require 'json'
 
 Dotenv.load
-# Process.daemon(nochdir = true)
+Process.daemon(nochdir = true)
 r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
 
 class TimedPlugin
