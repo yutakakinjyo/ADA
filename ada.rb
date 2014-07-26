@@ -2,6 +2,7 @@ require 'cinch'
 require 'dotenv'
 require 'redis'
 require 'json'
+require 'octokit'
 
 Dotenv.load
 r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
@@ -67,7 +68,14 @@ bot = Cinch::Bot.new do
       m.reply "#{event_name} は追加されていません"
     end
   end
+
+  on :message, /^#{ENV['NICK']} 強くなれ/ do |m|
+
+  end
+
 end
+
+
 
 bot.start
 
