@@ -2,7 +2,6 @@ require 'cinch'
 require 'dotenv'
 require 'redis'
 require 'json'
-require 'octokit'
 
 Dotenv.load
 r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
@@ -69,10 +68,15 @@ bot = Cinch::Bot.new do
     end
   end
 
-  on :message, /^#{ENV['NICK']} 強くなれ/ do |m|
-
+  on :message, /^#{ENV['NICK']}(: | )強くなれ$/ do |m|
+    m.reply "最新の code を git pull します ..."
+    if system("git pull")
+      m.reply "最新の code 取得に成功しました. これより再起動します"
+      
+    else
+      m.reply "最新の code 取得に失敗しました."
+    end
   end
-
 end
 
 
