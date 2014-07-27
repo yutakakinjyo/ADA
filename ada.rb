@@ -4,13 +4,13 @@ require 'redis'
 require 'json'
 
 Dotenv.load
-# Process.daemon(nochdir = true)
+Process.daemon(nochdir = true)
 r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
 
 class TimedPlugin
   include Cinch::Plugin
 
-  timer 5, method: :timed
+  timer 60, method: :timed
   def timed
     r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
     # 5分前
