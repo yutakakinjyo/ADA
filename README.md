@@ -46,7 +46,7 @@ delete event
 **Time**  
 ADA reminded you about added event when event info include `%H:%M`
 
-**Date**
+**Date**  
 ADA reminded you about added event when event info include `%m/%d`
 
 ### Upgrade
