@@ -30,16 +30,19 @@ Please kill process from command line or menthion to bot e.g. `ADA: down`.
 
 ## Usage
 
-### Interface
+### IRC Interface
 
 list up events  
-`$ event list`
+`event list`
 
 add event  
-`$ event add <event info>`
+`event add <event info>`
 
 delete event  
-`$ event delete <event info>`
+`event delete <event info>`
+
+ADA upgrade  
+`ADA: 強くなれ`
 
 ### Reminder
 
@@ -48,8 +51,3 @@ ADA reminded you about added event when event info include `%H:%M`
 
 **Date**  
 ADA reminded you about added event when event info include `%m/%d`
-
-### Upgrade
-
-mention to Bot.  
-`ADA: 強くなれ`
