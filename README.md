@@ -13,7 +13,7 @@ Operating support IRC Bot
 $ git clone https://github.com/yutakakinjyo/ADA.git`
 $ cd ADA
 $ bundle install
-$ cp .env.example .env
+$ mv .env.example .env
 $ vi .env
 ```
 
