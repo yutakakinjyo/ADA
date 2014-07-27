@@ -2,7 +2,7 @@
 
 Operating support IRC Bot
 
-## Install
+## How to Install
 
 ### needs
 
@@ -17,20 +17,18 @@ $ mv .env.example .env
 $ vi .env
 ```
 
-## Running
+## How to Run
 
 ```
 $ ruby mother.rb
 $ ruby ada.rb
 ```
-## Stop
+## How to Stop
 
 _mother_ and _ada_ is daemon.  
 Please kill process from command line or menthion to bot e.g. `ADA: down`.
 
-## Usage
-
-### IRC Interface
+## IRC Interface
 
 list up events  
 `event list`
