@@ -4,24 +4,45 @@ require 'redis'
 require 'json'
 
 Dotenv.load
-Process.daemon(nochdir = true)
+# Process.daemon(nochdir = true)
 r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
 
 class TimedPlugin
   include Cinch::Plugin
 
-  timer 60, method: :timed
+  timer 5, method: :timed
   def timed
     r = Redis.new(:host => ENV['REDISHOST'], :port => ENV['REDISPORT'])
     # 5分前
-    time = (Time.now + 60*5).strftime("%H:%M")
+    date = (Time.now + 60*5)
+    day = date.strftime("%m/%d")
+    time = date.strftime("%H:%M")
     r.keys.each do |key|
       event_info = JSON.parse(r[key])
-      if /#{time}/ =~ event_info['name']
-        Channel(event_info['channel']).send "#{event_info['name']} 5分前です"
+      if existDate event_info['name']
+        if (isThatTime time, event_info['name']) && (isThatDay day, event_info['name'])
+          Channel(event_info['channel']).send "#{event_info['name']} 5分前です"
+        end
+      else
+        if isThatTime time, event_info['name']
+          Channel(event_info['channel']).send "#{event_info['name']} 5分前です"
+        end
       end
     end
   end
+
+  def existDate str
+    return /(\d\d)\/(\d\d)/ =~ str
+  end
+
+  def isThatDay day, str
+    return /#{day}/ =~ str
+  end
+
+  def isThatTime time, str
+    /#{time}/ =~ str
+  end
+
 end
 
 
