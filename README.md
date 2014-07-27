@@ -1,6 +1,6 @@
 # ADA
 
-Operating support Bot
+Operating support IRC Bot
 
 ## Install
 
