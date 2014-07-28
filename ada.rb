@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 require 'cinch'
 require 'dotenv'
 require 'redis'
 require 'json'
 
 Dotenv.load
-# Process.daemon(nochdir = true)
+Process.daemon(nochdir = true)
 
 class TimedPlugin
   include Cinch::Plugin
