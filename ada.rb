@@ -61,7 +61,7 @@ class ADAPlugin
     if $redis.exists(key)
       m.reply "#{event_name} はすでに追加されています"
     else
-      r[key] = {:name => event_name, :channel => m.channel}.to_json
+      $redis[key] = {:name => event_name, :channel => m.channel}.to_json
       m.reply "#{event_name} をイベント一覧に追加しました"
     end
   end
