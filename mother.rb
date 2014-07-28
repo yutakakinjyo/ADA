@@ -16,14 +16,11 @@ bot = Cinch::Bot.new do
     c.password = ENV['PASSWORD']
   end
 
-  on :message, /^reboot ([0-9]+) (.+)/ do |m, pid, bot_file|
-    m.reply "#{pid} を再起動"
-    if Process.kill(:QUIT, pid.to_i) == 1
-      m.reply "#{bot_file} 終了を確認. 起動をかけます"
-      `ruby #{bot_file}`
-    else
-      m.reply "シャットダウンに失敗"
-    end
+  on :message, /^reboot (.+)/ do |m, bot_file|
+    m.reply "#{m.user.nick} を再起動します"
+    m.reply "#{m.user.nick}: down"
+    m.reply "#{bot_file} 終了命令を発行. 起動命令を発行"
+    `ruby #{bot_file}`
   end
 
   on :message, /^#{ENV['MOTHER_NICK']}(: | )down$/ do |m|

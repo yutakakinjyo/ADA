@@ -52,7 +52,7 @@ class ADAPlugin
 
   def reboot m
       m.reply "ｻﾖｳﾅﾗ ..."
-      m.reply "reboot #{Process.pid} #{$0}"
+      m.reply "reboot #{$0}"
   end
 
   match /^event add (.+)/, :method => :event_add
